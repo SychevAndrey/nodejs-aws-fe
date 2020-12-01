@@ -13,8 +13,12 @@ axios.interceptors.response.use(
     return response;
   },
   function (error) {
-    if (error.response.status >= 400 && error.reponse.status <= 422) {
-      alert(error.response.data?.data);
+    if (
+      error.response &&
+      error.response.status >= 400 &&
+      error.response.status <= 422
+    ) {
+      alert(error.response.data?.message);
     }
     return Promise.reject(error.response);
   }
