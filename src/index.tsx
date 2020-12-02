@@ -2,19 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'index.css';
 import App from 'components/App/App';
-import {store} from 'store/store';
-import {Provider} from 'react-redux';
+import { store } from 'store/store';
+import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import CssBaseline from "@material-ui/core/CssBaseline";
+import CssBaseline from '@material-ui/core/CssBaseline';
 import axios from 'axios';
 
 axios.interceptors.response.use(
-  response => {
+  (response) => {
     return response;
   },
-  function(error) {
-    if (error.response.status === 400) {
-      alert(error.response.data?.data);
+  function (error) {
+    if (
+      error.response &&
+      error.response.status >= 400 &&
+      error.response.status <= 422
+    ) {
+      alert(error.response.data?.message);
     }
     return Promise.reject(error.response);
   }
@@ -23,8 +27,8 @@ axios.interceptors.response.use(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <CssBaseline/>
-      <App/>
+      <CssBaseline />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
