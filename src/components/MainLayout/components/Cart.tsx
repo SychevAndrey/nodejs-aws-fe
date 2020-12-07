@@ -14,7 +14,7 @@ export default function Cart() {
     const token = Buffer.from(`SychevAndrey:TEST_PASSWORD`).toString('base64');
     localStorage.setItem('authorization_token', token);
     axios
-      .get(`${API_PATHS.cart}/profile/cart`, {
+      .get(`${API_PATHS.cart}/api/profile/cart`, {
         headers: {
           Authorization: `Basic ${localStorage.getItem('authorization_token')}`,
         },
